@@ -1,0 +1,6 @@
+post api/addDisaster
+get api/Disaster
+get api/Disaster/:name
+
+post Donation
+get Donation/
