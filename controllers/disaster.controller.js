@@ -11,6 +11,7 @@ exports.create = (req, res) => {
   
     // Create a Disaster
     const disaster = new Disaster({
+      name:req.body.name,
       title: req.body.title,
       description: req.body.description,
       published: req.body.published ? req.body.published : false
@@ -34,6 +35,7 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     const title = req.query.title;
     var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
+   
   
     Disaster.find(condition)
       .then(data => {
@@ -45,6 +47,8 @@ exports.findAll = (req, res) => {
             err.message || "Some error occurred while retrieving disasters."
         });
       });
+
+    
   };
 
 // Find a single Disaster with an id
