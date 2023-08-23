@@ -1,11 +1,20 @@
 const db = require("../models");
 const Disaster = db.disasters;
 
+const getPagination = (page, size) => {
+  const limit = size ? +size : 3;
+  const offset = page ? page * limit : 0;
+
+  return { limit, offset };
+};
+
+
 // Create and Save a new Disaster
 exports.create = (req, res) => {
     // Validate request
     if (!req.body.title) {
       res.status(400).send({ message: "Content can not be empty!" });
+      
       return;
     }
   
@@ -33,23 +42,32 @@ exports.create = (req, res) => {
 
 // Retrieve all Disasters from the database.
 exports.findAll = (req, res) => {
-    const title = req.query.title;
-    var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
-   
-  
-    Disaster.find(condition)
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving disasters."
-        });
-      });
+  const { page, size, title } = req.query;
+  var condition = title
+  ? { title: { $regex: new RegExp(title), $options: "i" } }
+  : {};
+
+const { limit, offset } = getPagination(page, size);
+
+
+Disaster.paginate(condition, { offset, limit })
+.then((data) => {
+  res.send({
+    totalItems: data.totalDocs,
+    disasters: data.docs,
+    totalPages: data.totalPages,
+    currentPage: data.page - 1,
+  });
+})
+.catch((err) => {
+  res.status(500).send({
+    message:
+      err.message || "Some error occurred while retrieving tutorials.",
+  });
+});
+};
 
     
-  };
 
 // Find a single Disaster with an id
 exports.findOne = (req, res) => {
