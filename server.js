@@ -25,7 +25,11 @@ app.use((_req, res, next) => {
   next();
 });
 
+
 require("./routes/disaster.routes")(app);
+require("./routes/donation.routes")(app);
+require("./routes/materials.routes")(app);
+
 
 const db = require("./models");
 db.mongoose
@@ -41,10 +45,7 @@ db.mongoose
     process.exit();
   });
 
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
-});
+
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
