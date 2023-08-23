@@ -13,7 +13,7 @@ exports.create = (req, res) => {
     const donation = new Donation({
       bank:req.body.bank,
       account:req.body.account,
-      amount:req.body.name,
+      amount:req.body.amount,
       name: req.body.name,
       phone: req.body.phone,
       description: req.body.description,
@@ -36,8 +36,8 @@ exports.create = (req, res) => {
 
 // Retrieve all Donations from the database.
 exports.findAll = (req, res) => {
-    const title = req.query.title;
-    var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
+    const name = req.query.name;
+    var condition = name ? { title: { $regex: new RegExp(name), $options: "i" } } : {};
    
   
     Donation.find(condition)
