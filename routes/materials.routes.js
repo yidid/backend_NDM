@@ -1,5 +1,5 @@
 module.exports = app => {
-    const materials = require("../controllers/material.controller");
+    const materials = require("../controllers/material.controller.js");
   
     var router = require("express").Router();
   
