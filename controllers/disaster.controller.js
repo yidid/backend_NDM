@@ -8,13 +8,11 @@ const getPagination = (page, size) => {
   return { limit, offset };
 };
 
-
 // Create and Save a new Disaster
 exports.create = (req, res) => {
     // Validate request
     if (!req.body.title) {
       res.status(400).send({ message: "Content can not be empty!" });
-      
       return;
     }
   

@@ -5,7 +5,7 @@
             name:String,
             phone: String,
             email: String,
-            Address: String,
+            address: String,
             Password:String,
     
           },
