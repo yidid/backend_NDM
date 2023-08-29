@@ -83,6 +83,7 @@ exports.findOne = (req, res) => {
         res
           .status(500)
           .send({ message: "Error retrieving Disaster with id=" + id });
+          console.log(id);
       });
   };
 
