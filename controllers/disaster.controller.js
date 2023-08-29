@@ -56,7 +56,7 @@ Disaster.paginate(condition, { offset, limit })
     totalItems: data.totalDocs,
     disasters: data.docs,
     totalPages: data.totalPages,
-    currentPage: data.page - 1,
+    currentPage: data.page + 1,
   });
 })
 .catch((err) => {
@@ -83,7 +83,6 @@ exports.findOne = (req, res) => {
         res
           .status(500)
           .send({ message: "Error retrieving Disaster with id=" + id });
-          console.log(id);
       });
   };
 
